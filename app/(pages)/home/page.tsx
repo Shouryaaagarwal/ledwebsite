@@ -24,52 +24,54 @@ export default function Home() {
 
       {/* ================= HERO SECTION WITH BACKGROUND IMAGE ================= */}
       <div className="relative h-screen w-full pt-20">
-        {" "}
-        {/* ADDED pt-20 HERE - This is the key fix */}
-        {/* Background Image using Next.js Image component */}
-        <div className="absolute inset-0">
-          <Image
-            src="/homepage2.jpg"
-            alt="LED Advertising Background"
-            fill
-            className="object-cover object-center"
-            priority
-          />
-        </div>
-        {/* Dark Overlay with translucent effect */}
-        <div className="absolute inset-0 bg-black/60" />
-        {/* Hero Content */}
-        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-          <h1
-            className={`${poppins.className} font-extrabold text-5xl md:text-7xl text-white mb-6 leading-tight`}
-          >
-            Create. <span className="text-[#b9b6b6]">Display.</span> Shine.
-          </h1>
+  {/* Background Image */}
+  <div className="absolute inset-0">
+    <Image
+      src="/homepage2.jpg"
+      alt="LED Advertising Background"
+      fill
+      className="object-cover object-center"
+      priority
+    />
+  </div>
 
-          <p className="text-xl md:text-2xl text-[#E5E5E5] max-w-3xl mx-auto mb-8 leading-relaxed">
-            Revolutionizing how brands and creators collaborate in visual
-            advertising through cutting-edge LED solutions.
-          </p>
+  {/* Dark Overlay */}
+  <div className="absolute inset-0 bg-black/60" />
 
-          <div className="flex flex-col md:flex-row gap-6 items-center justify-center mt-8">
-            <button className="bg-[#A538FO] hover:text-black hover:bg-white px-10 py-5 rounded-full font-semibold text-white text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl border-2 border-white">
-              🛒 Shop LED Products
-            </button>
-            <button className="bg-transparent border-2 border-white hover:bg-white hover:text-black px-10 py-5 rounded-full font-semibold text-white text-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-sm">
-              🎨 Create Advertisements
-            </button>
-          </div>
+  {/* Hero Content */}
+  <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20">
+    <h1
+      className={`${poppins.className} font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-4 sm:mb-6 leading-tight`}
+    >
+      Create. <span className="text-[#b9b6b6]">Display.</span> Shine.
+    </h1>
 
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-            <div className="animate-bounce">
-              <div className="w-3 h-3 bg-[#ada7a7] rounded-full mx-auto mb-1"></div>
-              <div className="w-3 h-3 bg-[#E6D7FF] rounded-full mx-auto mb-1"></div>
-              <div className="w-3 h-3 bg-[#F4EFFF] rounded-full mx-auto"></div>
-            </div>
-          </div>
-        </div>
+    <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#E5E5E5] max-w-2xl sm:max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed">
+      Revolutionizing how brands and creators collaborate in visual advertising
+      through cutting-edge LED solutions.
+    </p>
+
+    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center mt-6 sm:mt-8">
+      <button className="bg-transparent hover:text-black hover:bg-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full font-semibold text-white text-base sm:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl border-2 border-white">
+        🛒 Shop LED Products
+      </button>
+
+      <button className="bg-transparent border-2 border-white hover:bg-white hover:text-black px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full font-semibold text-white text-base sm:text-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-sm">
+        🎨 Create Advertisements
+      </button>
+    </div>
+
+    {/* Scroll Indicator */}
+    <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2">
+      <div className="animate-bounce">
+        <div className="w-2 sm:w-3 h-2 sm:h-3 bg-[#ada7a7] rounded-full mx-auto mb-1"></div>
+        <div className="w-2 sm:w-3 h-2 sm:h-3 bg-[#E6D7FF] rounded-full mx-auto mb-1"></div>
+        <div className="w-2 sm:w-3 h-2 sm:h-3 bg-[#F4EFFF] rounded-full mx-auto"></div>
       </div>
+    </div>
+  </div>
+</div>
+
 
       {/* ================= SERVICES SECTION ================= */}
       <div className="max-w-7xl mx-auto px-6 py-20 relative z-20">
