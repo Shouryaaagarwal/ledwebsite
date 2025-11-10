@@ -78,8 +78,42 @@
 // }
 
 
+// import type { Metadata } from "next";
+// import "./globals.css";
+// import NextauthProvider from "./Provider";
+
+// export const metadata: Metadata = {
+//   title: "Hey Humanz",
+//   description: "Create. Display. Shine. - LED product sales, rentals, and ad creation collaborations",
+// };
+
+// export default function RootLayout({
+//   children,
+// }: Readonly<{
+//   children: React.ReactNode;
+// }>) {
+//   return (
+//     <html lang="en">
+//       <head>
+//         <link
+//           href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=DM+Sans:wght@400;500&family=Outfit:wght@500;700&display=swap"
+//           rel="stylesheet"
+//         />
+//       </head>
+//       <body className="font-dm-sans antialiased">   
+//         <NextauthProvider>
+
+//         {children}
+//         </NextauthProvider>
+//       </body>
+//     </html>
+//   );
+// }
+
+
 import type { Metadata } from "next";
 import "./globals.css";
+import NextauthProvider from "./Provider";
 
 export const metadata: Metadata = {
   title: "Hey Humanz",
@@ -99,8 +133,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-dm-sans antialiased">
-        {children}
+      <body className="font-dm-sans antialiased">   
+        <NextauthProvider>
+          {children}
+        </NextauthProvider>
       </body>
     </html>
   );
