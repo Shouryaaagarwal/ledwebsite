@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { withRoleProtection } from "@/app/(pages)/withRoleProtection/page";
+import { withRoleProtection } from "@/lib/withRoleProtection";
 
 function OnboardingPage() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

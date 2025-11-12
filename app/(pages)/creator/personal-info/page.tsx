@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, ChangeEvent } from "react";
-import { withRoleProtection } from "@/app/(pages)/withRoleProtection/page";
+import { withRoleProtection } from "@/lib/withRoleProtection";
 
 interface FormData {
   fullName: string;

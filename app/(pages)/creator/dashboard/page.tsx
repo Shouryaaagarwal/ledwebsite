@@ -1,6 +1,6 @@
 "use client";
 
-import { withRoleProtection } from "@/app/(pages)/withRoleProtection/page";
+import { withRoleProtection } from "@/lib/withRoleProtection";
 
 function CreatorPage() {
   return (
