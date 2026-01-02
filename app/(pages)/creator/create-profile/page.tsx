@@ -2,14 +2,22 @@
 
 import { useState } from "react";
 import { withRoleProtection } from "@/lib/withRoleProtection";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 function OnboardingPage() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const router = useRouter();
 
   const handleSignOut = () => {
     // Add your sign out logic here
     console.log("Signing out...");
     setIsDropdownOpen(false);
+  };
+
+  const handleBeginOnboarding = () => {
+    // Navigate to the next onboarding page
+    router.push("/onboarding/step-1");
   };
 
   return (
@@ -70,13 +78,13 @@ function OnboardingPage() {
         {/* Progress Bar */}
         <div className="mb-12">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-sm font-medium text-gray-600">Step 1 of 6</span>
-            <span className="text-sm font-medium text-gray-600">17%</span>
+            <span className="text-sm font-medium text-gray-600">Step 1 of 8</span>
+            <span className="text-sm font-medium text-gray-600">13%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
               className="bg-black h-2 rounded-full transition-all duration-300"
-              style={{ width: "17%" }}
+              style={{ width: "13%" }}
             ></div>
           </div>
         </div>
@@ -93,9 +101,11 @@ function OnboardingPage() {
 
         {/* Action Button */}
         <div className="text-center">
-          <button className="bg-black text-white px-12 py-4 rounded-lg text-lg font-semibold hover:bg-gray-800 transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+          <Link href= "/creator/create-profile/personal-info"
+            className="bg-black text-white px-12 py-4 rounded-lg text-lg font-semibold hover:bg-gray-800 transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+          >
             Let's Begin
-          </button>
+          </Link>
         </div>
 
         {/* Additional Info */}

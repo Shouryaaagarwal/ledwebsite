@@ -989,13 +989,43 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
+    // async jwt({ token, user, account }) {
+    //   if (user) {
+    //     token.id = user.id;
+    //     token.role = user.role;
+    //   }
+    //   return token;
+    // },
     async jwt({ token, user, account }) {
-      if (user) {
-        token.id = user.id;
-        token.role = user.role;
+  // Initial sign in
+  if (user) {
+    token.id = user.id;
+    token.role = user.role;
+    token.email = user.email; // Ensure email is in token
+  }
+  
+  // CRITICAL: Always fetch fresh data from database on every JWT update
+  if (token.email) {
+    try {
+      await dbConnect();
+      const dbUser = await User.findOne({ email: token.email });
+      
+      if (dbUser) {
+        token.id = dbUser._id.toString();
+        token.role = dbUser.role;
+        console.log("🔍 JWT Debug - Updated from DB:", { 
+          id: token.id, 
+          role: token.role,
+          email: token.email 
+        });
       }
-      return token;
-    },
+    } catch (error) {
+      console.error("Error fetching user in JWT callback:", error);
+    }
+  }
+  
+  return token;
+},
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.id as string;

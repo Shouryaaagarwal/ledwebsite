@@ -3,6 +3,7 @@
 import { Inter, Poppins } from "next/font/google";
 import { NavbarDemo } from "@/components/NavbarDemo";
 import Image from "next/image";
+import Link from "next/link";
 
 const inter = Inter({
   weight: ["400", "500", "600"],
@@ -56,9 +57,9 @@ export default function Home() {
         🛒 Shop LED Products
       </button>
 
-      <button className="bg-transparent border-2 border-white hover:bg-white hover:text-black px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full font-semibold text-white text-base sm:text-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-sm">
+      <Link href="/createads" className="bg-transparent border-2 border-white hover:bg-white hover:text-black px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full font-semibold text-white text-base sm:text-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-sm">
         🎨 Create Advertisements
-      </button>
+      </Link>
     </div>
 
     {/* Scroll Indicator */}

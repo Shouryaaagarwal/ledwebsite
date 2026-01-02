@@ -135,7 +135,8 @@
 //   return this._id.toString();
 // });
 
-// export const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>('User', userSchema); 
+// export const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>('User', userSchema);  
+
 import mongoose, { Document, Model, Schema, Types } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
