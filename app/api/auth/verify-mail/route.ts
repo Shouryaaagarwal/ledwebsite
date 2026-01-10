@@ -252,6 +252,94 @@
 // } 
 
 
+// import { NextResponse } from 'next/server'
+// import dbConnect from '@/lib/mongodb'
+// import { User } from '@/backend/models/User'
+
+// export async function GET(request: Request) {
+//   try {
+//     const { searchParams } = new URL(request.url)
+//     const token = searchParams.get('token')
+
+//     if (!token) {
+//       // CHANGED: Redirect to error page if accessed directly without token
+//       return NextResponse.redirect(new URL('/auth/verify-email?error=Missing+token', request.url))
+//     }
+
+//     await dbConnect();
+
+//     // Use updateOne directly to avoid validation issues
+//     const result = await User.updateOne(
+//       { emailToken: token },
+//       { 
+//         $set: { 
+//           emailVerified: new Date(),
+//         },
+//         $unset: { emailToken: "" } // This removes the field entirely
+//       }
+//     );
+
+//     // Check if any document was modified
+//     if (result.matchedCount === 0) {
+//       // CHANGED: Redirect to error page
+//       return NextResponse.redirect(new URL('/auth/verify-email?error=Invalid+or+expired+token', request.url))
+//     }
+
+//     // CHANGED: Redirect to success page with token for the page to handle
+//     return NextResponse.redirect(new URL('/auth/verify-email?success=true&token=' + token, request.url))
+
+//   } catch (error) {
+//     console.error("Email verification error:", error)
+//     // CHANGED: Redirect to error page
+//     return NextResponse.redirect(new URL('/auth/verify-email?error=Server+error', request.url))
+//   }
+// }
+
+// export async function POST(request: Request) {
+//   try {
+//     const { token } = await request.json();
+
+//     if (!token) {
+//       return NextResponse.json(
+//         { error: "Verification token is required" },
+//         { status: 400 }
+//       )
+//     }
+
+//     await dbConnect();
+
+//     // Use updateOne to avoid validation
+//     const result = await User.updateOne(
+//       { emailToken: token },
+//       { 
+//         $set: { emailVerified: new Date() },
+//         $unset: { emailToken: "" }
+//       }
+//     );
+
+//     if (result.matchedCount === 0) {
+//       return NextResponse.json(
+//         { error: "Invalid or expired verification token" },
+//         { status: 400 }
+//       )
+//     }
+
+//     return NextResponse.json(
+//       { message: "Email verified successfully" },
+//       { status: 200 }
+//     )
+
+//   } catch (error) {
+//     console.error("Email verification error:", error)
+//     return NextResponse.json(
+//       { error: "Internal server error" },
+//       { status: 500 }
+//     )
+//   }
+// }   
+
+
+// app/api/auth/verify-email/route.ts
 import { NextResponse } from 'next/server'
 import dbConnect from '@/lib/mongodb'
 import { User } from '@/backend/models/User'
@@ -262,11 +350,13 @@ export async function GET(request: Request) {
     const token = searchParams.get('token')
 
     if (!token) {
-      // CHANGED: Redirect to error page if accessed directly without token
+      // Redirect to error page if accessed directly without token
       return NextResponse.redirect(new URL('/auth/verify-email?error=Missing+token', request.url))
     }
 
     await dbConnect();
+
+    console.log("🔍 Verifying email with token:", token);
 
     // Use updateOne directly to avoid validation issues
     const result = await User.updateOne(
@@ -281,16 +371,23 @@ export async function GET(request: Request) {
 
     // Check if any document was modified
     if (result.matchedCount === 0) {
-      // CHANGED: Redirect to error page
+      console.log("❌ No user found with token:", token);
+      // Redirect to error page
       return NextResponse.redirect(new URL('/auth/verify-email?error=Invalid+or+expired+token', request.url))
     }
 
-    // CHANGED: Redirect to success page with token for the page to handle
-    return NextResponse.redirect(new URL('/auth/verify-email?success=true&token=' + token, request.url))
+    console.log("✅ Email verified successfully for token:", token);
+
+    // Get the user email for redirect
+    const user = await User.findOne({ emailToken: token });
+    const email = user?.email || '';
+
+    // Redirect to success page
+    return NextResponse.redirect(new URL(`/auth/verify-email?success=true&token=${token}&email=${encodeURIComponent(email)}`, request.url))
 
   } catch (error) {
     console.error("Email verification error:", error)
-    // CHANGED: Redirect to error page
+    // Redirect to error page
     return NextResponse.redirect(new URL('/auth/verify-email?error=Server+error', request.url))
   }
 }
@@ -307,6 +404,8 @@ export async function POST(request: Request) {
     }
 
     await dbConnect();
+
+    console.log("🔍 Verifying email with token (POST):", token);
 
     // Use updateOne to avoid validation
     const result = await User.updateOne(
